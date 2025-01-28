@@ -8,6 +8,16 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'MERN Stack & DevOps Portfolio',
   description: 'Professional portfolio showcasing MERN stack and DevOps expertise',
+  icons: {
+    icon: [
+      {
+        url: '/assets/icons.svg',
+        sizes: 'any',
+      },
+      
+    ],
+    
+  },
 };
 
 export default function RootLayout({
