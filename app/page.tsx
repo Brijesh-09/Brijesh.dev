@@ -132,13 +132,13 @@ export default function Home() {
                 title="Infrastructure Provisioning and Deployment Solution"
                 description="Utilized Terraform to provision servers and deploy features, optimizing infrastructure efficiency."
                 tags={["Terraform", "AWS", "IaC"]}
-                githubUrl="https://github.com/Brijesh-09/terraform-aws"
+                githubUrl="https://github.com/Brijesh-09?tab=repositories"
               />
               <ProjectCard
                 title="Jenkins Autoscaling Setup"
                 description="Configured Jenkins on an AWS Autoscaling group with an Application Load Balancer and EFS filesystem, enhancing scalability and data management."
                 tags={["Jenkins", "AWS", "EFS", "Autoscaling"]}
-                githubUrl="https://github.com/Brijesh-09/jenkins-aws"
+                githubUrl="https://github.com/Brijesh-09?tab=repositories"
               />
             </TabsContent>
             <TabsContent value="experience" className="mt-8 space-y-6">
@@ -166,13 +166,13 @@ export default function Home() {
                 title="Auto Scaling in Kubernetes"
                 date="Dec 19, 2022"
                 description="Autoscaling pods in Kubernetes and their types"
-                url="https://brijeshkori.hashnode.dev/auto-scaling-in-kubernetes"
+                url="https://brijeshkori.hashnode.dev/auto-scaling-in-kubernetus"
               />
               <BlogCard
                 title="A Beginner's Guide to Optimizing Container Reliability in Kubernetes"
                 date="March 9, 2024"
                 description="When things go wrong with your containerized applications, it's important to know how to troubleshoot effectively."
-                url="https://brijeshkori.hashnode.dev/a-beginners-guide-to-optimizing-container-reliability-in-kubernetes0"
+                url="https://brijeshkori.hashnode.dev/a-beginners-guide-to-optimizing-container-reliability-in-kubernetes"
               />
             </TabsContent>
           </Tabs>
@@ -222,7 +222,7 @@ export default function Home() {
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="flex items-center space-x-2">
               <span className="text-sm text-muted-foreground">
-                © 2024 Brijesh Kori. All rights reserved.
+                © 2025 Brijesh Kori. All rights reserved.
               </span>
             </div>
             <div className="flex items-center space-x-4">
