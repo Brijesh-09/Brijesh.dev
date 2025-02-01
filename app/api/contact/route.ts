@@ -3,7 +3,8 @@ import clientPromise from '@/lib/mongodb';
 
 export async function POST(request: Request) {
   try {
-    const { email, idea } = await request.json();
+    const body = await request.json();
+    const { email, idea } = body;
 
     const client = await clientPromise;
     const db = client.db("portfolio");
