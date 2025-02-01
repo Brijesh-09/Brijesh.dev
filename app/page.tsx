@@ -16,7 +16,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 interface ProjectCardProps {
   title: string;
   description: string;
@@ -47,10 +50,52 @@ interface ServiceCardProps {
 }
 
 export default function Home() {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCardVisible, setCardVisible] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    idea: ''
+  });
+
+  const handleCardToggle = () => {
+    setCardVisible(!isCardVisible);
+  };
   const resumePath = "/assets/resume.pdf";
 
   const handleViewResume = (): void => {
     window.open(resumePath, "_blank");
+  };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) throw new Error('Failed to submit');
+
+      toast({
+        title: "Success!",
+        description: "Your message has been sent successfully. We'll get back to you soon!",
+      });
+
+      setFormData({ email: '', idea: '' });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -179,7 +224,7 @@ export default function Home() {
         </section>
 
         {/* Services Section */}
-        {/* <section className="container px-4 py-16 mx-auto">
+        <section className="container px-4 py-16 mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Services I Offer</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -191,30 +236,75 @@ export default function Home() {
             <ServiceCard
               icon={<Code className="h-8 w-8" />}
               title="Full Stack Development"
-              description="Custom web applications using the MERN stack with modern architecture and best practices."
-              price="From $80/hour"
-            />
+              description="Custom web applications using the MERN stack with modern architecture and best practices." price={""}            />
             <ServiceCard
               icon={<Cloud className="h-8 w-8" />}
               title="Cloud Architecture"
-              description="AWS cloud infrastructure design and implementation with cost optimization."
-              price="From $100/hour"
+              description="AWS cloud infrastructure design and implementation with cost optimization." price={""}             
             />
             <ServiceCard
               icon={<Server className="h-8 w-8" />}
               title="DevOps Consulting"
-              description="CI/CD pipeline setup, infrastructure automation, and deployment optimization."
-              price="From $90/hour"
+              description="CI/CD pipeline setup, infrastructure automation, and deployment optimization." price={""}             
             />
             <ServiceCard
               icon={<Rocket className="h-8 w-8" />}
               title="Technical Leadership"
-              description="Team mentoring, architecture planning, and technical strategy consulting."
-              price="Custom Quote"
-            />
+              description="Architecture planning, and technical strategy consulting." price={""}            />
           </div>
-        </section> */}
+        </section>
       </main>
+      {/* Contact Form Section */}
+      <section className="container px-4 py-16 mx-auto">
+    <div className="max-w-xl mx-auto">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold mb-4">Get Started</h2>
+        <p
+          className="text-muted-foreground cursor-pointer text-yellow-500 hover:text-yellow-600 transition-colors"
+          onClick={handleCardToggle}
+        >
+          Share your landing page idea and let's bring it to life together  <u>for Free</u>
+        </p>
+      </div>
+      {isCardVisible && (
+        <Card
+          className="p-6 transition-all duration-500 transform opacity-100 translate-y-0"
+        >
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <label htmlFor="email" className="text-sm font-medium">
+                Your Email
+              </label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="john@example.com"
+                value={formData.email}
+                onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="idea" className="text-sm font-medium">
+                Your Landing Page Idea
+              </label>
+              <Textarea
+                id="idea"
+                placeholder="Tell us about your landing page idea..."
+                value={formData.idea}
+                onChange={(e) => setFormData(prev => ({ ...prev, idea: e.target.value }))}
+                required
+                className="min-h-[120px]"
+              />
+            </div>
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? "Sending..." : "Send Message"}
+            </Button>
+          </form>
+        </Card>
+      )}
+    </div>
+  </section>
 
       {/* Footer */}
       <footer className="border-t bg-background">
@@ -334,13 +424,12 @@ const BlogCard: React.FC<BlogCardProps> = ({ title, date, description, url }) =>
   );
 };
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, price }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description }) => {
   return (
     <Card className="p-6 text-center hover:shadow-lg transition-shadow">
       <div className="flex justify-center mb-4 text-primary">{icon}</div>
       <h3 className="text-xl font-semibold mb-2">{title}</h3>
       <p className="text-muted-foreground mb-4">{description}</p>
-      <p className="font-bold">{price}</p>
     </Card>
   );
 };
