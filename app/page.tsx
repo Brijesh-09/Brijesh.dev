@@ -171,6 +171,7 @@ export default function Home() {
                 title="Streaky"
                 description="A To-do Application that helps users stay consistent"
                 tags={["Express", "React", "Prisma", "Docker"]}
+                liveUrl="https://streakyyy.vercel.app/"
                 githubUrl="https://github.com/Brijesh-09/streaky"
               />
               <ProjectCard
