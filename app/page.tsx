@@ -61,7 +61,7 @@ export default function Home() {
   const handleCardToggle = () => {
     setCardVisible(!isCardVisible);
   };
-  const resumePath = "/assets/Resume.pdf";
+  const resumePath = "/assets/resume.pdf";
 
   const handleViewResume = (): void => {
     window.open(resumePath, "_blank");
