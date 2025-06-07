@@ -264,7 +264,7 @@ export default function Home() {
           className="text-muted-foreground cursor-pointer text-yellow-500 hover:text-yellow-600 transition-colors"
           onClick={handleCardToggle}
         >
-          Share your landing page idea and let's bring it to life together  <u>for Free</u>
+          If you have any inquiries, please feel free to reach out. <u>Here</u>
         </p>
       </div>
       {isCardVisible && (
@@ -287,11 +287,11 @@ export default function Home() {
             </div>
             <div className="space-y-2">
               <label htmlFor="idea" className="text-sm font-medium">
-                Your Landing Page Idea
+                Message
               </label>
               <Textarea
                 id="idea"
-                placeholder="Tell us about your landing page idea..."
+                placeholder="Let's Connect"
                 value={formData.idea}
                 onChange={(e) => setFormData(prev => ({ ...prev, idea: e.target.value }))}
                 required
