@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'MERN Stack & DevOps Portfolio',
+  title: 'Brijesh kori | MERN Stack Developer & DevOps Engineer',
   description: 'Professional portfolio showcasing MERN stack and DevOps expertise',
   icons: {
     icon: [
