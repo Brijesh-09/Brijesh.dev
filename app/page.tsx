@@ -69,23 +69,27 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+  
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
+      const formDataToSend = new FormData();
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("message", formData.idea);
+  
+      const response = await fetch("https://formspree.io/f/mnnvyrrp", {
+        method: "POST",
+        body: formDataToSend,
         headers: {
-          'Content-Type': 'application/json',
+          Accept: "application/json",
         },
-        body: JSON.stringify(formData),
       });
-
-      if (!response.ok) throw new Error('Failed to submit');
-
+  
+      if (!response.ok) throw new Error('Failed to send');
+  
       toast({
         title: "Success!",
         description: "Your message has been sent successfully. We'll get back to you soon!",
       });
-
+  
       setFormData({ email: '', idea: '' });
     } catch (error) {
       toast({
@@ -97,6 +101,7 @@ export default function Home() {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -161,6 +166,18 @@ export default function Home() {
             </TabsList>
             <TabsContent value="projects" className="mt-8 grid gap-6 sm:grid-cols-2">
               <ProjectCard
+                title="EmSocial"
+                description="EmSocial is an AI-powered web app that lets you search posts across Instagram, YouTube, and Twitter by keyword. You can specify how many posts to fetch, and the app performs sentiment and engagement analysis using Google's Gemini API"
+                tags={["MERN", "Social Media", "Gemini", "Sentimentanalysis", "MONGO"]}
+                githubUrl="https://github.com/Brijesh-09/emsocial"
+              />
+              <ProjectCard
+                title="ProManim"
+                description="Promanim — AI-powered Code-to-Video Generation using Manim"
+                tags={["AI", "AWS", "REDIS", "Postgress", "System Design"]}
+                githubUrl="https://github.com/Brijesh-09/Manim"
+              />
+              <ProjectCard
                 title="Khelo-Full Stack Application"
                 description="Khelo to discover local sports events, connect with fellow athletes, and make every game more exciting."
                 tags={["MongoDB", "Express", "React", "Node.js", "K8s"]}
@@ -208,6 +225,13 @@ export default function Home() {
               />
             </TabsContent>
             <TabsContent value="blog" className="mt-8 grid gap-6 sm:grid-cols-2">
+            <BlogCard
+                title="Deploying a Monorepo Application via Docker Containers on an EC2 Server with CI/CD using GitHub Actions"
+                date="Feb 26, 2025"
+                description="n this blog, we'll walk through the entire process, from setting up an EC2 instance, containerizing the application, and deploying it using Docker, to automating the CI/CD pipeline with GitHub Actions."
+                url="https://brijeshkori.hashnode.dev/deploying-a-monorepo-application-via-docker-containers-on-an-ec2-server-with-cicd-using-github-actions"
+              />
+              
               <BlogCard
                 title="Auto Scaling in Kubernetes"
                 date="Dec 19, 2022"
@@ -237,75 +261,75 @@ export default function Home() {
             <ServiceCard
               icon={<Code className="h-8 w-8" />}
               title="Full Stack Development"
-              description="Custom web applications using the MERN stack with modern architecture and best practices." price={""}            />
+              description="Custom web applications using the MERN stack with modern architecture and best practices." price={""} />
             <ServiceCard
               icon={<Cloud className="h-8 w-8" />}
               title="Cloud Architecture"
-              description="AWS cloud infrastructure design and implementation with cost optimization." price={""}             
+              description="AWS cloud infrastructure design and implementation with cost optimization." price={""}
             />
             <ServiceCard
               icon={<Server className="h-8 w-8" />}
               title="DevOps Consulting"
-              description="CI/CD pipeline setup, infrastructure automation, and deployment optimization." price={""}             
+              description="CI/CD pipeline setup, infrastructure automation, and deployment optimization." price={""}
             />
             <ServiceCard
               icon={<Rocket className="h-8 w-8" />}
               title="Technical Leadership"
-              description="Architecture planning, and technical strategy consulting." price={""}            />
+              description="Architecture planning, and technical strategy consulting." price={""} />
           </div>
         </section>
       </main>
       {/* Contact Form Section */}
       <section className="container px-4 py-16 mx-auto">
-    <div className="max-w-xl mx-auto">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold mb-4">Get Started</h2>
-        <p
-          className="text-muted-foreground cursor-pointer text-yellow-500 hover:text-yellow-600 transition-colors"
-          onClick={handleCardToggle}
-        >
-          If you have any inquiries, please feel free to reach out. <u>Here</u>
-        </p>
-      </div>
-      {isCardVisible && (
-        <Card
-          className="p-6 transition-all duration-500 transform opacity-100 translate-y-0"
-        >
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium">
-                Your Email
-              </label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="john@example.com"
-                value={formData.email}
-                onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="idea" className="text-sm font-medium">
-                Message
-              </label>
-              <Textarea
-                id="idea"
-                placeholder="Let's Connect"
-                value={formData.idea}
-                onChange={(e) => setFormData(prev => ({ ...prev, idea: e.target.value }))}
-                required
-                className="min-h-[120px]"
-              />
-            </div>
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Sending..." : "Send Message"}
-            </Button>
-          </form>
-        </Card>
-      )}
-    </div>
-  </section>
+        <div className="max-w-xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-4">Get Started</h2>
+            <p
+              className="text-muted-foreground cursor-pointer text-yellow-500 hover:text-yellow-600 transition-colors"
+              onClick={handleCardToggle}
+            >
+              If you have any inquiries, please feel free to reach out. <u>Here</u>
+            </p>
+          </div>
+          {isCardVisible && (
+            <Card
+              className="p-6 transition-all duration-500 transform opacity-100 translate-y-0"
+            >
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium">
+                    Your Email
+                  </label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="john@example.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="idea" className="text-sm font-medium">
+                    Message
+                  </label>
+                  <Textarea
+                    id="idea"
+                    placeholder="Let's Connect"
+                    value={formData.idea}
+                    onChange={(e) => setFormData(prev => ({ ...prev, idea: e.target.value }))}
+                    required
+                    className="min-h-[120px]"
+                  />
+                </div>
+                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </Button>
+              </form>
+            </Card>
+          )}
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="border-t bg-background">
