@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://brijeshkori.in
+
+# Sitemaps
+Sitemap: https://brijeshkori.in/sitemap.xml
